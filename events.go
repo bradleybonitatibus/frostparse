@@ -34,7 +34,7 @@ func (e listener) AddEventListener(event EventType, cb CombatLogRecordCallback) 
 	e.cbs[event] = cb
 }
 
-// Get returns the callback and an `ok` to indicate if the key existed in 
+// Get returns the callback and an `ok` to indicate if the key existed in
 // the event callback map.
 func (e listener) Get(event EventType) (CombatLogRecordCallback, bool) {
 	cb, ok := e.cbs[event]

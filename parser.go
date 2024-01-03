@@ -67,6 +67,10 @@ func New(opts ...ParserFunc) *Parser {
 func (p *Parser) Parse() ([]*CombatLogRecord, error) {
 	empty := []*CombatLogRecord{}
 	f, err := os.Open(p.LogFile)
+	defer func() {
+		f.Close()
+	}()
+
 	if err != nil {
 		return empty, err
 	}
