@@ -20,7 +20,7 @@ import (
 
 func main() {
     p := frostparse.New(
-        frostparse.WithLogFile("C:\\Program Files (x86)\\World of Warcraft 3.3.5a\\Logs\\WoWCombatLog"),
+        frostparse.WithLogFile("C:\\Program Files (x86)\\World of Warcraft 3.3.5a\\Logs\\WoWCombatLog.txt"),
     )
     _data, err := p.Parse()
     if err != nil {
