@@ -4,12 +4,22 @@ World of Warcraft 3.3.5a Combat Log Parser library.
 
 ## Overview
 
-This combat log parser is wrintten in `go` with the purpose of concurrently processing
-a combat log file and providing a means of structuring the 3.3.5a combat log format
-into well-structured data.
+This combat log parser is written in `go` and provides a way to structure the
+[COMBAT_LOG_EVENT](https://wowpedia.fandom.com/wiki/COMBAT_LOG_EVENT) into 
+well-known structures.
+
+
+## Data Model
+
+The `CombatLogRecord` struct aggregates a `BaseCombatEvent`, a `Prefix` and a `Suffix`.
+The `Prefix` struct is an aggregate to various prefixes, `SpellAndRangePrefix`, `EnchantPrefix`, and `EnvironmentalPrefix`. The member fields of the struct
+are pointers because some properties are not populated based on the `BaseCombatEvent.EventType` field of the log record.
+
 
 ## Usage
 
+Basic usage will provide a means to parse the combat log file into a slice of pointers
+to a `frostparse.CombatLogRecord` and you can do with the data as you please:
 ```go
 package main
 
@@ -59,9 +69,3 @@ func main() {
     fmt.Println("DamageTakenBySpell: ", stats.DamageTakenBySpell)
 }
 ```
-
-## Data Model
-
-The `CombatLogRecord` struct aggregates a `BaseCombatEvent`, a `Prefix` and a `Suffix`.
-The `Prefix` struct is an aggregate to various prefixes, `SpellAndRangePrefix`, `EnchantPrefix`, and `EnvironmentalPrefix`. The member fields of the struct
-are pointers because some properties are not populated based on the `BaseCombatEvent.EventType` field of the log record.
