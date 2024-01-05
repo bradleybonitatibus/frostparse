@@ -19,10 +19,11 @@ import (
 )
 
 func main() {
+    pth := "C:\\Program Files (x86)\\World of Warcraft 3.3.5a\\Logs\\WoWCombatLog.txt"
     p := frostparse.New(
-        frostparse.WithLogFile("C:\\Program Files (x86)\\World of Warcraft 3.3.5a\\Logs\\WoWCombatLog.txt"),
+        frostparse.WithLogFile(pth),
     )
-    _data, err := p.Parse()
+    data, err := p.Parse()
     if err != nil {
         log.Fatal("failed to parse combatlog: ", err)
     }
@@ -40,19 +41,22 @@ import (
 )
 
 func main() {
+    pth := "C:\\Program Files (x86)\\World of Warcraft 3.3.5a\\Logs\\WoWCombatLog.txt"
     p := frostparse.New(
-        frostparse.WithLogFile("C:\\Program Files (x86)\\World of Warcraft 3.3.5a\\Logs\\WoWCombatLog.txt"),
+        frostparse.WithLogFile(pth),
     )
     data, err := p.Parse()
     if err != nil {
         log.Fatal("failed to parse combatlog: ", err)
     }
-    coll := NewCollector()
-    coll.Run(data)
-    fmt.Println("DamageBySource: ", coll.DamageBySource)
-	fmt.Println("HealingBySource: ", coll.HealingBySource)
-	fmt.Println("DamageTakenBySource: ", coll.DamageTakenBySource)
-	fmt.Println("DamageTakenBySpell: ", coll.DamageTakenBySpell)
+    coll := frostparse.NewCollector(
+        frostparse.WithTimeresolution((time.Second*5)),
+    )
+    stats := coll.Run(data)
+    fmt.Println("DamageBySource: ", stats.DamageBySource)
+    fmt.Println("HealingBySource: ", stats.HealingBySource)
+    fmt.Println("DamageTakenBySource: ", stats.DamageTakenBySource)
+    fmt.Println("DamageTakenBySpell: ", stats.DamageTakenBySpell)
 }
 ```
 
