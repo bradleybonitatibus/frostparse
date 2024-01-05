@@ -289,9 +289,9 @@ type EnvironmentalPrefix struct {
 	EnvironmentalType EnvironmentalType
 }
 
-// SpellPrefix is the most common prefix containing spell metadata for SPELL_
+// SpellAndRangePrefix is the most common prefix containing spell metadata for SPELL_
 // and RANGE_ prefixed event types.
-type SpellPrefix struct {
+type SpellAndRangePrefix struct {
 	SpellID     uint64
 	SpellName   string
 	SpellSchool SpellSchool
@@ -367,9 +367,9 @@ type EnchantPrefix struct {
 // Prefix aggregates all the prefix types. The sub-prefixes will be `nil` if the
 // event type does not match the prefix.
 type Prefix struct {
-	SpellAndRangePrefix *SpellPrefix
-	EnchantPrefix       *EnchantPrefix
-	EnvironmentalPrefix *EnvironmentalPrefix
+	*SpellAndRangePrefix
+	*EnchantPrefix
+	*EnvironmentalPrefix
 }
 
 // ExtraAttacksSuffix provides metadata for how much an extra-attack hit for.

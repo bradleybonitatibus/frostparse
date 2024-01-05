@@ -39,9 +39,7 @@ func TestNewWithOptions(t *testing.T) {
 }
 
 func TestParserParse(t *testing.T) {
-	p := New(
-		WithLogFile("./testdata/test.txt"),
-	)
+	p := newTestParser()
 	start := time.Now()
 	d, err := p.Parse()
 	if err != nil {
@@ -64,10 +62,7 @@ func TestParserWithEventListener(t *testing.T) {
 		swingCount++
 	})
 
-	p := New(
-		WithEventListener(el),
-		WithLogFile("./testdata/test.txt"),
-	)
+	p := newTestParser()
 
 	_, err := p.Parse()
 	if err != nil {

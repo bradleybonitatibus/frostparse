@@ -24,6 +24,8 @@ import (
 	"time"
 )
 
+// ParserFunc is a function that accepts a pointer to a Parser struct
+// to be used in the options variadic function in the `New` function.
 type ParserFunc func(*Parser)
 
 // Parser is responsible for loading the combat log file and parsing the data
@@ -112,9 +114,9 @@ func parseRow(startTime time.Time, data string) CombatLogRecord {
 		Timestamp:  t,
 		EventType:  eventType,
 		SourceID:   eventParts[1],
-		SourceName: strings.ReplaceAll(eventParts[2], `"`, ""),
+		SourceName: removeQuoteString(eventParts[2]),
 		TargetID:   eventParts[4],
-		TargetName: strings.ReplaceAll(eventParts[5], `"`, ""),
+		TargetName: removeQuoteString(eventParts[5]),
 	}
 	prefix := Prefix{}
 	suffix := Suffix{}
@@ -230,8 +232,8 @@ func parseRow(startTime time.Time, data string) CombatLogRecord {
 	}
 }
 
-func parseSpellPrefix(eventParts []string) *SpellPrefix {
-	return &SpellPrefix{
+func parseSpellPrefix(eventParts []string) *SpellAndRangePrefix {
+	return &SpellAndRangePrefix{
 		SpellID:     mustParseUint(eventParts[7]),
 		SpellName:   removeQuoteString(eventParts[8]),
 		SpellSchool: mustParseSpellSchool(eventParts[9]),

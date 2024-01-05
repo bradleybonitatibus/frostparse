@@ -102,3 +102,40 @@ func parseNilBool(s string) bool {
 	}
 	return b
 }
+
+func sliceContains[T comparable](seq []T, v T) bool {
+	for i := range seq {
+		if seq[i] == v {
+			return true
+		}
+	}
+	return false
+}
+
+func isDamageEvent(c CombatLogRecord) bool {
+	return sliceContains(DamageEvents, c.EventType)
+}
+
+func isHealingEvent(c CombatLogRecord) bool {
+	return sliceContains(HealEvents, c.EventType)
+}
+
+func isOverlayEvent(c CombatLogRecord) bool {
+	return sliceContains(OverlayEvents, c.EventType)
+}
+
+func isBossName(s string) bool {
+	return sliceContains(BossNames, s)
+}
+
+func isBossID(v string) bool {
+	return strings.HasPrefix(v, "0xF15")
+}
+
+func isNPCID(v string) bool {
+	return strings.HasPrefix(v, "0xF13")
+}
+
+func isPlayerID(v string) bool {
+	return strings.HasPrefix(v, "0x07")
+}
