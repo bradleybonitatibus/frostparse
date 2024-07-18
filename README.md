@@ -1,6 +1,6 @@
 # `frostparse`
 
-World of Warcraft 3.3.5a Combat Log Parser library.
+World of Warcraft 3.3.5a Combat Log Parser library, tested against several raids on Warmane's Icecrown server.
 
 ## Overview
 
